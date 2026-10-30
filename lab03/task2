@@ -8,18 +8,15 @@
 int main(void) {
     int matrix[ROWS][COLS];
     
-    // Ініціалізація генератора випадкових чисел
+
     srand((unsigned int)time(NULL));
 
-    // Заповнення матриці випадковими числами з діапазону [-50; 50]
-    // Використовуємо лінійний прохід (Row-Major Order)
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
             matrix[i][j] = (rand() % 101) - 50;
         }
     }
 
-    // Виведення вихідної матриці у вигляді акуратної таблиці
     printf("Вихідна матриця (%dx%d):\n", ROWS, COLS);
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
@@ -29,7 +26,6 @@ int main(void) {
     }
     printf("\n");
 
-    // 1. Для кожної колонки матриці знайти мінімальний елемент
     for (int j = 0; j < COLS; j++) {
         int min_col_val = matrix[0][j];
         for (int i = 1; i < ROWS; i++) {
@@ -41,14 +37,12 @@ int main(void) {
     }
     printf("\n");
 
-    // 2. Поміняти місцями перший і останній рядки
     for (int j = 0; j < COLS; j++) {
         int temp = matrix[0][j];
         matrix[0][j] = matrix[ROWS - 1][j];
         matrix[ROWS - 1][j] = temp;
     }
 
-    // Виведення матриці після перестановки рядків
     printf("Матриця після перестановки першого та останнього рядків:\n");
     for (int i = 0; i < ROWS; i++) {
         for (int j = 0; j < COLS; j++) {
