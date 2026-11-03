@@ -15,18 +15,16 @@ int main() {
         return 1;
     }
 
-    double sum = 1.0;       // Початкова сума (нульовий член n=0, a_0 = 1)
-    double term = 1.0;      // Поточний член ряду a_0
+    double sum = 1.0; 
+    double term = 1.0;      
     int n = 1;
-    int max_iterations = 100000; // Апаратний захист (Timeout Guard)
+    int max_iterations = 100000; 
     int converged = 0;
 
     while (n <= max_iterations) {
-        // Рекурентне обчислення: a_n = a_{n-1} * (X / n)
         term = term * (x / n);
         sum += term;
 
-        // Перевірка досягнення точності за модулем
         if (fabs(term) < epsilon) {
             converged = 1;
             break;

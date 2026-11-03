@@ -13,18 +13,15 @@ int main() {
     printf("Enter step (dx): ");
     if (scanf("%lf", &dx) != 1) return 1;
 
-    // Обов'язкова валідація вхідних параметрів
     if (x_start > x_end || dx <= 0) {
         fprintf(stderr, "Error: invalid parameters (x_start must be <= x_end, and dx > 0).\n");
         return 1;
     }
 
-    // Виведення шапки таблиці
     printf("\n------------------------------------\n");
     printf("|      X      |       Y(X)         |\n");
     printf("------------------------------------\n");
 
-    // Цикл табулювання з урахуванням граничної точки
     for (double x = x_start; x <= x_end + 1e-9; x += dx) {
         double y;
         
