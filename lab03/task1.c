@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
 
 #define SIZE 15
 
 int main(void) {
-    int arr[SIZE];
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
 
+    int arr[SIZE];
     srand((unsigned int)time(NULL));
 
     for (int i = 0; i < SIZE; i++) {
