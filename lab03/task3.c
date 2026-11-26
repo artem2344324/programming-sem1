@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <windows.h>
 
 #define MAX_LEN 255
 
@@ -10,6 +11,9 @@ static char to_lower_ascii(char c) {
 }
 
 int main(void) {
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
+
     char str[MAX_LEN + 1];
     char clean[MAX_LEN + 1];
 
