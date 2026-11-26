@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
 
 #define N 4
 
@@ -15,8 +16,10 @@ static void print_matrix(int mat[N][N], const char *title) {
 }
 
 int main(void) {
-    int mat[N][N];
+    SetConsoleOutputCP(65001);
+    SetConsoleCP(65001);
 
+    int mat[N][N];
     srand((unsigned int)time(NULL));
 
     for (int i = 0; i < N; i++) {
