@@ -1,55 +1,70 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+
+#define SIZE 15
 
 int main(void) {
-    // Налаштування кодування UTF-8 для правильного відображення кирилиці в консолі Windows
-    system("chcp 65001 > nul");
+    int arr[SIZE];
 
-    int n;
-    printf("Введіть кількість елементів масиву: ");
-    if (scanf("%d", &n) != 1 || n <= 0) {
-        printf("Помилка: некоректний розмір масиву.\n");
-        return 1;
+    srand((unsigned int)time(NULL));
+
+    for (int i = 0; i < SIZE; i++) {
+        arr[i] = (rand() % 101) - 50;
     }
 
-    int arr[n];
-    printf("Введіть %d елементів масиву:\n", n);
-    for (int i = 0; i < n; i++) {
-        printf("arr[%d] = ", i);
-        if (scanf("%d", &arr[i]) != 1) {
-            printf("Помилка введення даних.\n");
-            return 1;
-        }
-    }
-
-    // Обчислення суми та пошук мінімального/максимального елементів
-    int sum = 0;
-    int min = arr[0];
-    int max = arr[0];
-
-    for (int i = 0; i < n; i++) {
-        sum += arr[i];
-        if (arr[i] < min) {
-            min = arr[i];
-        }
-        if (arr[i] > max) {
-            max = arr[i];
-        }
-    }
-
-    double average = (double)sum / n;
-
-    // Вивід результатів
-    printf("\n--- Результати обробки масиву ---\n");
-    printf("Введений масив: ");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
+    printf("Вихідний масив:\n");
+    for (int i = 0; i < SIZE; i++) {
+        printf("%4d", arr[i]);
     }
     printf("\n");
-    printf("Мінімальний елемент: %d\n", min);
-    printf("Максимальний елемент: %d\n", max);
-    printf("Сума елементів: %d\n", sum);
-    printf("Середнє арифметичне: %.2f\n", average);
+
+    int max_val = arr[0];
+    int max_idx = 0;
+    for (int i = 1; i < SIZE; i++) {
+        if (arr[i] > max_val) {
+            max_val = arr[i];
+            max_idx = i;
+        }
+    }
+
+    int first_zero = -1;
+    int last_zero = -1;
+    for (int i = 0; i < SIZE; i++) {
+        if (arr[i] == 0) {
+            if (first_zero == -1) {
+                first_zero = i;
+            }
+            last_zero = i;
+        }
+    }
+
+    long long prod_between_zeros = 1;
+    int has_between = 0;
+    if (first_zero != -1 && last_zero != -1 && last_zero - first_zero > 1) {
+        has_between = 1;
+        for (int i = first_zero + 1; i < last_zero; i++) {
+            prod_between_zeros *= arr[i];
+        }
+    }
+
+    printf("\nМаксимальний елемент: %d (індекс: %d)\n", max_val, max_idx);
+    if (first_zero == -1 || first_zero == last_zero) {
+        printf("У масиві менше двох нулів — добуток між першим і останнім нулем не обчислюється.\n");
+    } else if (!has_between) {
+        printf("Між першим (індекс %d) та останнім (індекс %d) нулями немає елементів.\n",
+               first_zero, last_zero);
+    } else {
+        printf("Перший нуль за індексом %d, останній — за індексом %d.\n",
+               first_zero, last_zero);
+        printf("Добуток елементів між ними: %lld\n", prod_between_zeros);
+    }
+
+    printf("\nСтан масиву після обробки:\n");
+    for (int i = 0; i < SIZE; i++) {
+        printf("%4d", arr[i]);
+    }
+    printf("\n");
 
     return 0;
 }
