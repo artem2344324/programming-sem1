@@ -2,55 +2,45 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define ROWS 4
-#define COLS 4
+#define N 4
+
+static void print_matrix(int mat[N][N], const char *title) {
+    printf("\n%s:\n", title);
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            printf("%6d", mat[i][j]);
+        }
+        printf("\n");
+    }
+}
 
 int main(void) {
-    system("chcp 65001 > nul");
+    int mat[N][N];
 
-    int matrix[ROWS][COLS];
-    
     srand((unsigned int)time(NULL));
 
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            matrix[i][j] = (rand() % 101) - 50;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            mat[i][j] = (rand() % 101) - 50;
         }
     }
 
-    printf("Initial matrix (%dx%d):\n", ROWS, COLS);
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            printf("%6d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
+    print_matrix(mat, "Матриця до обробки");
 
-    for (int j = 0; j < COLS; j++) {
-        int min_col_val = matrix[0][j];
-        for (int i = 1; i < ROWS; i++) {
-            if (matrix[i][j] < min_col_val) {
-                min_col_val = matrix[i][j];
+    long long sum_below_main = 0;
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i > j) {
+                sum_below_main += mat[i][j];
+            }
+            if (i + j == N - 1) {
+                mat[i][j] = 0;
             }
         }
-        printf("Minimum element in column %d: %d\n", j, min_col_val);
-    }
-    printf("\n");
-
-    for (int j = 0; j < COLS; j++) {
-        int temp = matrix[0][j];
-        matrix[0][j] = matrix[ROWS - 1][j];
-        matrix[ROWS - 1][j] = temp;
     }
 
-    printf("Matrix after swapping first and last rows:\n");
-    for (int i = 0; i < ROWS; i++) {
-        for (int j = 0; j < COLS; j++) {
-            printf("%6d ", matrix[i][j]);
-        }
-        printf("\n");
-    }
+    printf("\nСума елементів нижче головної діагоналі: %lld\n", sum_below_main);
+    print_matrix(mat, "Матриця після обнулення побічної діагоналі");
 
     return 0;
 }
