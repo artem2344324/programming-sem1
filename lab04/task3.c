@@ -12,7 +12,6 @@
 #define TEMP_SHIFT    11U
 #define TEMP_MASK     0x001FU 
 
-/* Прототипи функцій */
 void init_console_utf8(void);
 uint16_t pack_telemetry(uint16_t adc_value, uint8_t data_ready, uint8_t chip_temp);
 void unpack_telemetry(uint16_t packet, uint16_t *adc_value, uint8_t *data_ready, uint8_t *chip_temp);
